@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import {housesData} from '../data'
+import { housesData } from '../data'
 
 export const HouseContext = createContext();
 
@@ -14,17 +14,17 @@ const HouseContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   //return all countries
-  useEffect(()=> {
-    const allCountries = houses.map((house)=>{
+  useEffect(() => {
+    const allCountries = houses.map((house) => {
       return house.country;
     });
-   
+
     //remove duplicates
     const uniqueCountries = ['Location (any)', ...new Set(allCountries)];
-    
+
     //set countries state
     setCountries(uniqueCountries);
-  },[]);
+  }, []);
 
 
   //return all properties
@@ -40,8 +40,22 @@ const HouseContextProvider = ({ children }) => {
     setProperties(uniqueProperties);
   }, [])
 
-  const handleClick = ()=>{
-    console.log("clicked")
+  const handleClick = () => {
+  
+
+    //create a function that checkes if the string includes '(any)'
+    const isDefault = (str) => {
+      return str.split(' ').includes('(any)');
+    }
+    //get first value of price and parse it to number
+    const minNumber = parseInt(price.split(' ')[0]);
+    //get second value of price and parse it to number
+    const maxNumber = parseInt(price.split(' ')[2]);
+  
+    const newHouse = housesData.filter((house)=>{
+      console.log(house.price)
+    })
+    return newHouse;
   }
   return (
     <HouseContext.Provider value={{
