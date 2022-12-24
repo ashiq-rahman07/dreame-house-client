@@ -113,7 +113,7 @@ const HouseContextProvider = ({ children }) => {
     })
  
     setTimeout(()=>{
-      return newHouse.length < 1 ? setHouses([]) : setHouses(newHouse);
+      return newHouse.length < 1 ? setHouses([]) : setHouses(newHouse),
       setLoading(false);
     },1000);
   };
