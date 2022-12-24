@@ -48,14 +48,36 @@ const HouseContextProvider = ({ children }) => {
       return str.split(' ').includes('(any)');
     }
     //get first value of price and parse it to number
-    const minNumber = parseInt(price.split(' ')[0]);
+    const minPrice = parseInt(price.split(' ')[0]);
     //get second value of price and parse it to number
-    const maxNumber = parseInt(price.split(' ')[2]);
+    const maxPrice = parseInt(price.split(' ')[2]);
   
+    // eslint-disable-next-line array-callback-return
     const newHouse = housesData.filter((house)=>{
-      console.log(house.price)
+      const housePrice = parseInt(house.price);
+      //if all values are selected
+      if(
+        house.country === country &&
+        house.type === property &&
+        housePrice >= minPrice &&
+        housePrice <= maxPrice
+      ){
+        return house
+      }
+      //if country wasnot default
+      if(isDefault(country) && isDefault(property) && isDefault(price)){
+        return house;
+      }
+      if(!isDefault(country) && isDefault(property) && isDefault(price)){
+        return house.country === country;
+      }
+      //if property was not default
+      if (!isDefault(property) &&  isDefault(country)  && isDefault(price)){
+        return house.property === property;
+      }
+
     })
-    return newHouse;
+    console.log(newHouse)
   }
   return (
     <HouseContext.Provider value={{
